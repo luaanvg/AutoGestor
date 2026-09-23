@@ -69,8 +69,11 @@ telas carregam e exportações respondem corretamente.
 ## Painel Geral
 ![Painel geral do AutoGestor](docs/dashAG.png)
 
-### Gestão de veículos
-![Tela dos veículos cadastrados](docs/veiculosAG.png)
+## Gestão de veículos
+![Veículos cadastrados](docs/veiculosAG.png)
 
-### Registro de vendas
-![Tela de vendas](docs/vendasAG.png)
+## Registro de vendas
+![Vendas](docs/vendasAG.png)
+
+## Relatórios
+![Relatorios](docs/relatorios.png)
