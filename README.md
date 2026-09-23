@@ -19,15 +19,14 @@ evoluído para um sistema de controle de estoque, clientes, vendas e indicadores
 - consultas SQL comentadas;
 - testes automatizados.
 
-## Instalação no Windows, sem Git
+## Instalação no Windows
 
 O projeto requer Python 3.12 ou mais recente.
 
 ### Opção mais simples
 
 `INICIAR_WINDOWS.bat`. Na primeira vez, o arquivo cria a pasta `venv`, instala as dependências, 
-confere o banco e abre o sistema no navegador. Para encerrar o servidor, volte ao terminal e pressione
-`Ctrl + C`.
+confere o banco e abre o sistema no navegador.
 
 
 ## Gerar os arquivos de análise
@@ -64,20 +63,3 @@ telas carregam e exportações respondem corretamente.
 3. Uma venda cancelada muda o veículo para `Disponível`.
 4. Só pode existir uma venda confirmada por veículo.
 5. A data da venda não pode ser anterior à entrada no estoque.
-6. Clientes e veículos que possuem vendas não são apagados por acidente.
-
-## Arquivos mais importantes para estudar
-
-| Arquivo | Responsabilidade |
-| --- | --- |
-| `cars/models.py` | tabelas, relacionamentos e regras de negócio |
-| `cars/forms.py` | formulários e validações de entrada |
-| `cars/views.py` | fluxo das páginas, filtros, métricas e CSVs |
-| `cars/urls.py` | endereços do sistema |
-| `cars/admin.py` | configuração do Django Admin |
-| `cars/templates/cars/` | páginas HTML |
-| `cars/static/cars/styles.css` | aparência e responsividade |
-| `cars/management/commands/seed_demo.py` | criação dos dados fictícios |
-| `cars/management/commands/export_analytics.py` | exportação com Pandas |
-| `cars/tests.py` | testes automatizados |
-| `CONSULTAS_SQL.sql` | dez consultas SQL explicadas |
