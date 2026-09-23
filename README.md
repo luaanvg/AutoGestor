@@ -1,7 +1,6 @@
 # AutoGestor — gestão de veículos e vendas
 
-Projeto educacional em Django que começou como um CRUD de carros e motos e foi
-evoluído para um sistema de controle de estoque, clientes, vendas e indicadores.
+Sistema de gestão de veículos, clientes, estoque, vendas e indicadores desenvolvido com Django e SQL.
 
 ## O que já está pronto
 
