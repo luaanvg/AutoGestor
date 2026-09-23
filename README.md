@@ -62,3 +62,15 @@ telas carregam e exportações respondem corretamente.
 3. Uma venda cancelada muda o veículo para `Disponível`.
 4. Só pode existir uma venda confirmada por veículo.
 5. A data da venda não pode ser anterior à entrada no estoque.
+
+
+## Demonstração:
+
+## Painel Geral
+![Painel geral do AutoGestor](docs/dashAG.png)
+
+### Gestão de veículos
+![Tela dos veículos cadastrados](docs/veiculosAG.png)
+
+### Registro de vendas
+![Tela de vendas](docs/vendasAG.png)
