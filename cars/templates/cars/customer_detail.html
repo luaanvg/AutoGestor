@@ -1,0 +1,26 @@
+{% extends 'cars/base.html' %}
+{% load cars_extras %}
+
+{% block title %}{{ customer }} | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div><h1>{{ customer }}</h1><p class="subtitle">Cliente desde {{ customer.created_at|date:'d/m/Y' }}.</p></div>
+    <div class="actions"><a class="button" href="{% url 'sale_create' %}">Nova venda</a><a class="button secondary" href="{% url 'customer_update' customer.pk %}">Editar</a><a class="button danger" href="{% url 'customer_delete' customer.pk %}">Excluir</a></div>
+</header>
+<section class="panel">
+    <div class="data-list">
+        <div class="data-item"><span class="data-label">Telefone</span><span class="data-value">{{ customer.phone }}</span></div>
+        <div class="data-item"><span class="data-label">E-mail</span><span class="data-value">{{ customer.email|default:'-' }}</span></div>
+        <div class="data-item"><span class="data-label">Documento</span><span class="data-value">{{ customer.document|default:'-' }}</span></div>
+    </div>
+    {% if customer.notes %}<h3>Observações</h3><p>{{ customer.notes|linebreaksbr }}</p>{% endif %}
+</section>
+<section class="panel" style="margin-top: 1rem">
+    <h2>Histórico de compras</h2>
+    <div class="table-wrap"><table><thead><tr><th>Data</th><th>Veículo</th><th>Valor</th><th>Status</th><th></th></tr></thead><tbody>
+        {% for sale in sales %}<tr><td>{{ sale.sale_date|date:'d/m/Y' }}</td><td>{{ sale.vehicle }}</td><td>{{ sale.final_price|brl }}</td><td><span class="badge {{ sale.status|status_class }}">{{ sale.get_status_display }}</span></td><td><a href="{% url 'sale_detail' sale.pk %}">Abrir</a></td></tr>
+        {% empty %}<tr><td colspan="5" class="empty-state">Nenhuma compra registrada.</td></tr>{% endfor %}
+    </tbody></table></div>
+</section>
+{% endblock %}

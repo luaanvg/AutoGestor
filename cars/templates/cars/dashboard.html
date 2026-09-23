@@ -1,0 +1,103 @@
+{% extends 'cars/base.html' %}
+{% load cars_extras %}
+
+{% block title %}Painel | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Painel gerencial</h1>
+        <p class="subtitle">Resumo do estoque, vendas e resultados.</p>
+    </div>
+    <div class="actions">
+        <a class="button secondary" href="{% url 'vehicle_create' %}">Novo veículo</a>
+        <a class="button" href="{% url 'sale_create' %}">Registrar venda</a>
+    </div>
+</header>
+
+<section class="stats-grid" aria-label="Indicadores principais">
+    <article class="stat-card"><span class="stat-label">Veículos disponíveis</span><span class="stat-value">{{ available_count }}</span></article>
+    <article class="stat-card"><span class="stat-label">Reservados</span><span class="stat-value">{{ reserved_count }}</span></article>
+    <article class="stat-card"><span class="stat-label">Vendidos</span><span class="stat-value">{{ sold_count }}</span></article>
+    <article class="stat-card"><span class="stat-label">Clientes</span><span class="stat-value">{{ customer_count }}</span></article>
+    <article class="stat-card"><span class="stat-label">Faturamento</span><span class="stat-value">{{ revenue|brl }}</span></article>
+    <article class="stat-card"><span class="stat-label">Lucro bruto</span><span class="stat-value">{{ gross_profit|brl }}</span></article>
+    <article class="stat-card"><span class="stat-label">Ticket médio</span><span class="stat-value">{{ average_ticket|brl }}</span></article>
+    <article class="stat-card"><span class="stat-label">Capital em estoque</span><span class="stat-value">{{ inventory_value|brl }}</span></article>
+</section>
+
+<section class="dashboard-grid">
+    <article class="panel">
+        <h2>Faturamento por mês</h2>
+        {% for row in monthly_sales %}
+            <div class="bar-row">
+                <span class="bar-label">{{ row.month|date:'m/Y' }}</span>
+                <div class="bar-track"><div class="bar-fill" style="width: {{ row.bar_width }}%"></div></div>
+                <span class="bar-value">{{ row.total|brl }}</span>
+            </div>
+        {% empty %}
+            <p class="muted">Registre vendas para visualizar o gráfico.</p>
+        {% endfor %}
+    </article>
+
+    <article class="panel">
+        <h2>Vendas por marca</h2>
+        {% for row in sales_by_brand %}
+            <div class="bar-row">
+                <span class="bar-label">{{ row.vehicle__brand__name }}</span>
+                <div class="bar-track"><div class="bar-fill" style="width: {{ row.bar_width }}%"></div></div>
+                <span class="bar-value">{{ row.quantity }}</span>
+            </div>
+        {% empty %}
+            <p class="muted">Ainda não há vendas confirmadas.</p>
+        {% endfor %}
+    </article>
+
+    <article class="panel">
+        <h2>Estoque por tipo</h2>
+        {% for row in stock_by_type %}
+            <div class="bar-row">
+                <span class="bar-label">{{ row.vehicle_type__name }}</span>
+                <div class="bar-track"><div class="bar-fill" style="width: {{ row.bar_width }}%"></div></div>
+                <span class="bar-value">{{ row.quantity }}</span>
+            </div>
+        {% empty %}
+            <p class="muted">Nenhum veículo no estoque.</p>
+        {% endfor %}
+    </article>
+
+    <article class="panel">
+        <h2>Veículos parados há 60+ dias</h2>
+        {% for vehicle in aging_vehicles %}
+            <p>
+                <a href="{% url 'vehicle_detail' vehicle.pk %}">{{ vehicle }}</a>
+                <span class="muted">— {{ vehicle.days_in_stock }} dias</span>
+            </p>
+        {% empty %}
+            <p class="muted">Nenhum veículo nessa situação.</p>
+        {% endfor %}
+    </article>
+
+    <article class="panel full-width">
+        <h2>Vendas recentes</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Data</th><th>Veículo</th><th>Cliente</th><th>Valor</th><th>Lucro</th></tr></thead>
+                <tbody>
+                    {% for sale in recent_sales %}
+                        <tr>
+                            <td>{{ sale.sale_date|date:'d/m/Y' }}</td>
+                            <td><a href="{% url 'sale_detail' sale.pk %}">{{ sale.vehicle }}</a></td>
+                            <td>{{ sale.customer }}</td>
+                            <td>{{ sale.final_price|brl }}</td>
+                            <td>{{ sale.gross_profit|brl }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="5" class="empty-state">Nenhuma venda registrada.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+{% endblock %}

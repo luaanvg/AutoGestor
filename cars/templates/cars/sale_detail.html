@@ -1,0 +1,25 @@
+{% extends 'cars/base.html' %}
+{% load cars_extras %}
+
+{% block title %}Venda #{{ sale.pk }} | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div><h1>Venda #{{ sale.pk }}</h1><p class="subtitle"><span class="badge {{ sale.status|status_class }}">{{ sale.get_status_display }}</span></p></div>
+    <div class="actions">
+        {% if sale.status == 'confirmed' %}<a class="button secondary" href="{% url 'sale_update' sale.pk %}">Editar</a><form method="post" action="{% url 'sale_cancel' sale.pk %}">{% csrf_token %}<button class="button danger" type="submit">Cancelar venda</button></form>{% endif %}
+    </div>
+</header>
+<section class="panel">
+    <div class="data-list">
+        <div class="data-item"><span class="data-label">Veículo</span><span class="data-value"><a href="{% url 'vehicle_detail' sale.vehicle.pk %}">{{ sale.vehicle }}</a></span></div>
+        <div class="data-item"><span class="data-label">Cliente</span><span class="data-value"><a href="{% url 'customer_detail' sale.customer.pk %}">{{ sale.customer }}</a></span></div>
+        <div class="data-item"><span class="data-label">Data</span><span class="data-value">{{ sale.sale_date|date:'d/m/Y' }}</span></div>
+        <div class="data-item"><span class="data-label">Forma de pagamento</span><span class="data-value">{{ sale.get_payment_method_display }}</span></div>
+        <div class="data-item"><span class="data-label">Preço de compra</span><span class="data-value">{{ sale.vehicle.purchase_price|brl }}</span></div>
+        <div class="data-item"><span class="data-label">Valor da venda</span><span class="data-value">{{ sale.final_price|brl }}</span></div>
+        <div class="data-item"><span class="data-label">Lucro bruto</span><span class="data-value">{{ sale.gross_profit|brl }}</span></div>
+    </div>
+    {% if sale.notes %}<h3>Observações</h3><p>{{ sale.notes|linebreaksbr }}</p>{% endif %}
+</section>
+{% endblock %}

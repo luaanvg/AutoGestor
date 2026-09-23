@@ -1,0 +1,19 @@
+{% extends 'cars/base.html' %}
+
+{% block title %}{{ title }} | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header"><div><h1>{{ title }}</h1><p class="subtitle">Ao confirmar, o veículo será marcado automaticamente como vendido.</p></div></header>
+<form class="form-card" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-row">
+        {% for field in form %}
+            <div class="form-field{% if field.name == 'notes' %} full-width{% endif %}">
+                {{ field.label_tag }}{{ field }}{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}{{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="actions"><button type="submit">Salvar venda</button><a class="button secondary" href="{% if sale %}{% url 'sale_detail' sale.pk %}{% else %}{% url 'sale_list' %}{% endif %}">Cancelar</a></div>
+</form>
+{% endblock %}

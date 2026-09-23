@@ -1,0 +1,16 @@
+﻿id,name,phone,email,created_at
+1,Ana Souza,(12) 90000-0001,cliente01@example.com,2026-09-22 13:48:30.443674
+2,Bruno Lima,(12) 90000-0002,cliente02@example.com,2026-09-22 13:48:30.444344
+3,Camila Rocha,(12) 90000-0003,cliente03@example.com,2026-09-22 13:48:30.444886
+4,Daniel Alves,(12) 90000-0004,cliente04@example.com,2026-09-22 13:48:30.445337
+5,Eduarda Martins,(12) 90000-0005,cliente05@example.com,2026-09-22 13:48:30.445815
+6,Felipe Santos,(12) 90000-0006,cliente06@example.com,2026-09-22 13:48:30.446237
+7,Gabriela Costa,(12) 90000-0007,cliente07@example.com,2026-09-22 13:48:30.446685
+8,Henrique Gomes,(12) 90000-0008,cliente08@example.com,2026-09-22 13:48:30.447102
+9,Isabela Ribeiro,(12) 90000-0009,cliente09@example.com,2026-09-22 13:48:30.447529
+10,João Pereira,(12) 90000-0010,cliente10@example.com,2026-09-22 13:48:30.447938
+11,Larissa Mendes,(12) 90000-0011,cliente11@example.com,2026-09-22 13:48:30.448402
+12,Marcos Oliveira,(12) 90000-0012,cliente12@example.com,2026-09-22 13:48:30.448914
+13,Natália Freitas,(12) 90000-0013,cliente13@example.com,2026-09-22 13:48:30.449345
+14,Paulo Nunes,(12) 90000-0014,cliente14@example.com,2026-09-22 13:48:30.449788
+15,Renata Carvalho,(12) 90000-0015,cliente15@example.com,2026-09-22 13:48:30.450263

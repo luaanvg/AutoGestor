@@ -1,0 +1,27 @@
+{% extends 'cars/base.html' %}
+
+{% block title %}Clientes | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div><h1>Clientes</h1><p class="subtitle">Cadastro e histórico de compras.</p></div>
+    <a class="button" href="{% url 'customer_create' %}">Novo cliente</a>
+</header>
+
+<form class="filters" method="get">
+    <div class="filters-grid"><div><label for="q">Buscar</label><input id="q" name="q" value="{{ query }}" placeholder="Nome, telefone, e-mail ou documento"></div></div>
+    <div class="actions" style="margin-top: .8rem"><button type="submit">Buscar</button><a class="button secondary" href="{% url 'customer_list' %}">Limpar</a></div>
+</form>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Compras registradas</th><th></th></tr></thead>
+        <tbody>
+            {% for customer in page %}
+                <tr><td><strong>{{ customer.name }}</strong></td><td>{{ customer.phone }}</td><td>{{ customer.email|default:'-' }}</td><td>{{ customer.sales_total }}</td><td><a href="{% url 'customer_detail' customer.pk %}">Ver cliente</a></td></tr>
+            {% empty %}<tr><td colspan="5" class="empty-state">Nenhum cliente encontrado.</td></tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include 'cars/partials/pagination.html' with page=page %}
+{% endblock %}

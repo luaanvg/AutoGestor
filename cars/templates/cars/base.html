@@ -1,0 +1,36 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}AutoGestor{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'cars/styles.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="{% url 'dashboard' %}">AutoGestor</a>
+            <nav class="nav" aria-label="Navegação principal">
+                <a href="{% url 'dashboard' %}">Painel</a>
+                <a href="{% url 'vehicle_list' %}">Veículos</a>
+                <a href="{% url 'customer_list' %}">Clientes</a>
+                <a href="{% url 'sale_list' %}">Vendas</a>
+                <a href="{% url 'reports' %}">Relatórios</a>
+                <a href="/admin/">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

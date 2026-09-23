@@ -1,0 +1,78 @@
+{% extends 'cars/base.html' %}
+{% load cars_extras %}
+
+{% block title %}{{ vehicle }} | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>{{ vehicle }}</h1>
+        <p class="subtitle"><span class="badge {{ vehicle.status|status_class }}">{{ vehicle.get_status_display }}</span></p>
+    </div>
+    <div class="actions">
+        {% if vehicle.status != 'sold' %}<a class="button" href="{% url 'sale_create' %}?vehicle={{ vehicle.pk }}">Registrar venda</a>{% endif %}
+        <a class="button secondary" href="{% url 'vehicle_update' vehicle.pk %}">Editar</a>
+        <a class="button danger" href="{% url 'vehicle_delete' vehicle.pk %}">Excluir</a>
+    </div>
+</header>
+
+<section class="detail-grid">
+    <div class="panel">
+        {% with cover=vehicle.cover_image %}
+            {% if cover %}<img class="gallery-main" src="{{ cover.photo.url }}" alt="{{ vehicle }}">{% else %}<div class="gallery-main photo-placeholder">Sem foto</div>{% endif %}
+        {% endwith %}
+        {% if vehicle.images.exists %}
+            <div class="gallery-grid">
+                {% for image in vehicle.images.all %}
+                    <article class="gallery-item">
+                        <img src="{{ image.photo.url }}" alt="Foto de {{ vehicle }}">
+                        <div class="gallery-actions">
+                            {% if not image.is_cover %}
+                                <form method="post" action="{% url 'image_cover' image.pk %}">{% csrf_token %}<button class="button secondary small" type="submit">Usar como capa</button></form>
+                            {% else %}<span class="badge success">Capa</span>{% endif %}
+                            <form method="post" action="{% url 'image_delete' image.pk %}">{% csrf_token %}<button class="button danger small" type="submit">Remover</button></form>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h2>Dados do veículo</h2>
+        <div class="data-list">
+            <div class="data-item"><span class="data-label">Tipo</span><span class="data-value">{{ vehicle.vehicle_type }}</span></div>
+            <div class="data-item"><span class="data-label">Marca</span><span class="data-value">{{ vehicle.brand }}</span></div>
+            <div class="data-item"><span class="data-label">Ano</span><span class="data-value">{{ vehicle.factory_year|default:'-' }}/{{ vehicle.model_year|default:'-' }}</span></div>
+            <div class="data-item"><span class="data-label">Cor</span><span class="data-value">{{ vehicle.color|default:'-' }}</span></div>
+            <div class="data-item"><span class="data-label">Placa</span><span class="data-value">{{ vehicle.license_plate|default:'-' }}</span></div>
+            <div class="data-item"><span class="data-label">Quilometragem</span><span class="data-value">{{ vehicle.mileage }} km</span></div>
+            <div class="data-item"><span class="data-label">Preço de compra</span><span class="data-value">{{ vehicle.purchase_price|brl }}</span></div>
+            <div class="data-item"><span class="data-label">Preço anunciado</span><span class="data-value">{{ vehicle.asking_price|brl }}</span></div>
+            <div class="data-item"><span class="data-label">Entrada no estoque</span><span class="data-value">{{ vehicle.entry_date|date:'d/m/Y' }}</span></div>
+            <div class="data-item"><span class="data-label">Dias em estoque</span><span class="data-value">{{ vehicle.days_in_stock }}</span></div>
+        </div>
+        {% if vehicle.description %}<h3>Descrição</h3><p>{{ vehicle.description|linebreaksbr }}</p>{% endif %}
+    </div>
+</section>
+
+<section class="panel" style="margin-top: 1rem">
+    <h2>Histórico de vendas</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Data</th><th>Cliente</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+                {% for sale in vehicle.sales.all %}
+                    <tr>
+                        <td>{{ sale.sale_date|date:'d/m/Y' }}</td>
+                        <td>{{ sale.customer }}</td>
+                        <td>{{ sale.final_price|brl }}</td>
+                        <td><span class="badge {{ sale.status|status_class }}">{{ sale.get_status_display }}</span></td>
+                        <td><a href="{% url 'sale_detail' sale.pk %}">Abrir</a></td>
+                    </tr>
+                {% empty %}<tr><td colspan="5" class="empty-state">Nenhuma venda para este veículo.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

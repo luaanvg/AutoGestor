@@ -1,0 +1,30 @@
+{% extends 'cars/base.html' %}
+
+{% block title %}{{ title }} | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header"><div><h1>{{ title }}</h1><p class="subtitle">Preencha as informações do estoque.</p></div></header>
+<form class="form-card" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-row">
+        {% for field in form %}
+            <div class="form-field{% if field.name == 'description' %} full-width{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="form-field">
+        <label for="photos">Adicionar fotos</label>
+        <input id="photos" type="file" name="photos" accept="image/*" multiple>
+        <span class="helptext">Você pode selecionar várias imagens ao mesmo tempo.</span>
+    </div>
+    <div class="actions">
+        <button type="submit">Salvar veículo</button>
+        <a class="button secondary" href="{% if vehicle %}{% url 'vehicle_detail' vehicle.pk %}{% else %}{% url 'vehicle_list' %}{% endif %}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'cars/base.html' %}
+{% load cars_extras %}
+
+{% block title %}Relatórios | AutoGestor{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div><h1>Relatórios</h1><p class="subtitle">Indicadores e arquivos para análise com Pandas, CSV e Excel.</p></div>
+    <div class="actions"><a class="button secondary" href="{% url 'export_vehicles_csv' %}">Baixar veículos CSV</a><a class="button" href="{% url 'export_sales_csv' %}">Baixar vendas CSV</a></div>
+</header>
+<section class="stats-grid">
+    <article class="stat-card"><span class="stat-label">Vendas confirmadas</span><span class="stat-value">{{ sales_count }}</span></article>
+    <article class="stat-card"><span class="stat-label">Faturamento</span><span class="stat-value">{{ revenue|brl }}</span></article>
+    <article class="stat-card"><span class="stat-label">Lucro bruto</span><span class="stat-value">{{ gross_profit|brl }}</span></article>
+    <article class="stat-card"><span class="stat-label">Ticket médio</span><span class="stat-value">{{ average_ticket|brl }}</span></article>
+</section>
+<section class="panel">
+    <h2>Veículos disponíveis há mais de 60 dias</h2>
+    <div class="table-wrap"><table><thead><tr><th>Veículo</th><th>Entrada</th><th>Dias no estoque</th><th>Preço anunciado</th></tr></thead><tbody>
+        {% for vehicle in stale_vehicles %}<tr><td><a href="{% url 'vehicle_detail' vehicle.pk %}">{{ vehicle }}</a></td><td>{{ vehicle.entry_date|date:'d/m/Y' }}</td><td>{{ vehicle.days_in_stock }}</td><td>{{ vehicle.asking_price|brl }}</td></tr>
+        {% empty %}<tr><td colspan="4" class="empty-state">Nenhum veículo nessa situação.</td></tr>{% endfor %}
+    </tbody></table></div>
+</section>
+<section class="panel" style="margin-top: 1rem">
+    <h2>Exportação completa</h2>
+    <p>Execute <code>python manage.py export_analytics</code> para gerar CSVs e uma planilha Excel com tabelas separadas para veículos, clientes, vendas e indicadores.</p>
+</section>
+{% endblock %}

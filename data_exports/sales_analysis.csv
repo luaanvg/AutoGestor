@@ -1,0 +1,20 @@
+﻿id,vehicle_id,customer_id,sale_date,final_price,payment_method,status,id_vehicle,brand,model,purchase_price,gross_profit,month
+1,6,1,2026-09-07,97900.00,pix,confirmed,6,Honda,Civic,85000.00,12900.0,2026-09
+2,7,2,2026-09-05,89400.00,financing,confirmed,7,Honda,City,78000.00,11400.0,2026-09
+3,8,3,2026-09-03,111900.00,cash,confirmed,8,Toyota,Corolla,98000.00,13900.0,2026-09
+4,9,4,2026-09-01,78400.00,card,confirmed,9,Toyota,Yaris,69000.00,9400.0,2026-09
+5,10,5,2026-08-30,82900.00,pix,confirmed,10,Volkswagen,Polo,72000.00,10900.0,2026-08
+6,11,6,2026-08-28,109400.00,financing,confirmed,11,Volkswagen,T-Cross,96000.00,13400.0,2026-08
+7,12,7,2026-07-27,74900.00,cash,confirmed,12,Chevrolet,Onix,65000.00,9900.0,2026-07
+8,13,8,2026-07-25,103400.00,card,confirmed,13,Chevrolet,Tracker,91000.00,12400.0,2026-07
+9,14,9,2026-07-23,69900.00,pix,confirmed,14,Fiat,Argo,59000.00,10900.0,2026-07
+10,15,10,2026-07-21,95400.00,financing,confirmed,15,Fiat,Pulse,83000.00,12400.0,2026-07
+11,16,11,2026-07-19,16900.00,cash,confirmed,16,Honda,CG 160,14500.00,2400.0,2026-07
+12,17,12,2026-07-17,37400.00,card,confirmed,17,Honda,CB 500F,33000.00,4400.0,2026-07
+13,18,13,2026-06-15,23900.00,pix,confirmed,18,Yamaha,Fazer 250,19500.00,4400.0,2026-06
+14,19,14,2026-06-13,31400.00,financing,confirmed,19,Yamaha,MT-03,27000.00,4400.0,2026-06
+15,20,15,2026-06-11,25900.00,cash,confirmed,20,Honda,XRE 300,22000.00,3900.0,2026-06
+16,21,1,2026-06-09,97900.00,card,confirmed,21,Honda,Civic Plus,86200.00,11700.0,2026-06
+17,22,2,2026-06-07,91400.00,pix,confirmed,22,Honda,City Plus,79200.00,12200.0,2026-06
+18,23,3,2026-06-05,113900.00,financing,confirmed,23,Toyota,Corolla Plus,99200.00,14700.0,2026-06
+19,26,15,2026-04-15,111400.00,financing,canceled,26,Volkswagen,T-Cross Plus,97200.00,14200.0,2026-04

@@ -1,0 +1,12 @@
+{% extends 'cars/base.html' %}
+
+{% block title %}Confirmar exclusão | AutoGestor{% endblock %}
+
+{% block content %}
+<section class="form-card">
+    <h1>Excluir {{ type }}</h1>
+    <p>Tem certeza de que deseja excluir <strong>{{ object }}</strong>?</p>
+    <p class="danger-text">Esta ação não pode ser desfeita.</p>
+    <form method="post">{% csrf_token %}<div class="actions"><button class="button danger" type="submit">Sim, excluir</button><a class="button secondary" href="javascript:history.back()">Voltar</a></div></form>
+</section>
+{% endblock %}
